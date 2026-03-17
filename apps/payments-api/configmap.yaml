@@ -1,0 +1,13 @@
+# Payments API — Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments-config
+  labels:
+    app: payments-api
+data:
+  DB_HOST: "postgres.internal"
+  DB_PORT: "5432"
+  LOG_LEVEL: "info"
+  API_VERSION: "v1.0.0"
+  FEATURE_NEW_CHECKOUT: "false"

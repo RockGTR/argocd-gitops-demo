@@ -1,0 +1,13 @@
+# Orders API — Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orders-config
+  labels:
+    app: orders-api
+data:
+  DB_HOST: "postgres.internal"
+  DB_PORT: "5432"
+  LOG_LEVEL: "info"
+  API_VERSION: "v2.1.0"
+  MAX_ORDER_SIZE: "100"

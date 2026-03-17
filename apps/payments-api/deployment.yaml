@@ -1,0 +1,46 @@
+# Payments API — Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-api
+  labels:
+    app: payments-api
+    team: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payments-api
+  template:
+    metadata:
+      labels:
+        app: payments-api
+        version: v1.0.0
+    spec:
+      containers:
+        - name: api
+          image: nginx:1.25-alpine
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: payments-config
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 30
